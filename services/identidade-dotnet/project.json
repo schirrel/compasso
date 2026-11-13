@@ -1,0 +1,8 @@
+{
+  "name": "identidade",
+  "targets": {
+    "build": { "command": "dotnet build", "options": { "cwd": "services/identidade-dotnet" } },
+    "test":  { "command": "dotnet test",          "options": { "cwd": "services/identidade-dotnet" } },
+    "serve": { "command": "dotnet run",       "options": { "cwd": "services/identidade-dotnet" } }
+  }
+}

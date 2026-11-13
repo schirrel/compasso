@@ -1,0 +1,8 @@
+{
+  "name": "reservas",
+  "targets": {
+    "build": { "command": "./gradlew build -x test", "options": { "cwd": "services/reservas-java" } },
+    "test":  { "command": "./gradlew test",          "options": { "cwd": "services/reservas-java" } },
+    "serve": { "command": "./gradlew bootRun",       "options": { "cwd": "services/reservas-java" } }
+  }
+}

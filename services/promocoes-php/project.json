@@ -1,0 +1,8 @@
+{
+  "name": "promocoes",
+  "targets": {
+    "build": { "command": "composer install", "options": { "cwd": "services/promocoes-php" } },
+    "test":  { "command": "composer test",          "options": { "cwd": "services/promocoes-php" } },
+    "serve": { "command": "composer serve",       "options": { "cwd": "services/promocoes-php" } }
+  }
+}

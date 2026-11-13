@@ -1,0 +1,8 @@
+{
+  "name": "busca",
+  "targets": {
+    "build": { "command": "echo 'no build for fastapi'", "options": { "cwd": "services/busca-fastapi" } },
+    "test":  { "command": "uv run pytest",          "options": { "cwd": "services/busca-fastapi" } },
+    "serve": { "command": "uv run fastapi dev",       "options": { "cwd": "services/busca-fastapi" } }
+  }
+}

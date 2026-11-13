@@ -1,0 +1,10 @@
+node_modules
+dist
+.nx
+.env
+__pycache__
+bin
+obj
+vendor
+build
+.venv

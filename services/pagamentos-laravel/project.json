@@ -1,0 +1,8 @@
+{
+  "name": "pagamentos",
+  "targets": {
+    "build": { "command": "composer install", "options": { "cwd": "services/pagamentos-laravel" } },
+    "test":  { "command": "php artisan test",          "options": { "cwd": "services/pagamentos-laravel" } },
+    "serve": { "command": "php artisan serve",       "options": { "cwd": "services/pagamentos-laravel" } }
+  }
+}

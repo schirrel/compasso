@@ -1,0 +1,8 @@
+{
+  "name": "catalogo",
+  "targets": {
+    "build": { "command": "echo 'no build for django'", "options": { "cwd": "services/catalogo-django" } },
+    "test":  { "command": "uv run python manage.py test",          "options": { "cwd": "services/catalogo-django" } },
+    "serve": { "command": "uv run python manage.py runserver",       "options": { "cwd": "services/catalogo-django" } }
+  }
+}
