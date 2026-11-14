@@ -1,0 +1,2 @@
+CREATE DATABASE identidade;
+CREATE DATABASE catalogo;

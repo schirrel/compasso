@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +28,22 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Identidade
+IDENTITY_JWKS_URL = os.environ.get(
+    "IDENTITY_JWKS_URL", "http://localhost:5000/.well-known/jwks.json"
+)
+IDENTITY_ISSUER = "compasso-identity"
+IDENTITY_AUDIENCE = "compasso"
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "catalogo.authentication.IdentityJWTAuthentication",
+        "rest_framework.authentication.SessionAuthentication",  # keeps the browsable API login
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticatedOrReadOnly",
+    ],
+}
 
 # Application definition
 
@@ -37,6 +54,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "rest_framework",
+    "catalogo",
 ]
 
 MIDDLEWARE = [
@@ -73,9 +92,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "catalogo",
+        "USER": "postgres",
+        "PASSWORD": "dev",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 
@@ -102,9 +125,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "pt-br"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "America/Cuiaba"
 
 USE_I18N = True
 

@@ -1,0 +1,10 @@
+{
+    "services": {
+        "identity" : "http://localhost:5000"
+    },
+    "identity": {
+        "jwks_url": ".well-known/jwks.json",
+        "issuer": "compasso-identidade",
+        "audience": "compasso"
+    }
+}
