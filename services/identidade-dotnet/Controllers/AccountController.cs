@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using System.Threading.Tasks;
 using System.Security.Claims;
 
-[Route("api/[controller]")]
+[Route("")]
 [ApiController]
 public class AccountController : ControllerBase
 {
