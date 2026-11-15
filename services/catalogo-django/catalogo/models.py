@@ -1,6 +1,15 @@
 from django.db import models
 from django.utils import timezone
 
+class IdentityUser:
+    """Minimal user object built from the token. The Identity service owns the real user."""
+
+    is_authenticated = True
+
+    def __init__ (self, user_id, email):
+        self.id = user_id
+        self.email = email
+
 class BaseModel(models.Model):
     created_at = models.DateTimeField(db_index=True, default=timezone.now)
     created_by = models.CharField(max_length=255) # From the identidade-dotnet User.Id
@@ -19,14 +28,12 @@ class Studio(BaseModel):
     def __str__(self):
         return self.name
 
-
 class Instructor(BaseModel):
     studio = models.ForeignKey(Studio, on_delete=models.CASCADE, related_name="instructors")
     name = models.CharField(max_length=120)
 
     def __str__(self):
         return self.name
-
 
 class Lesson(BaseModel):
     studio = models.ForeignKey(Studio, on_delete=models.CASCADE, related_name="lessons")
@@ -38,7 +45,6 @@ class Lesson(BaseModel):
 
     def __str__(self):
         return self.title
-
 
 class LessonSession(BaseModel):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name="sessions")

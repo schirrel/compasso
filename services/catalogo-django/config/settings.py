@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 IDENTITY_JWKS_URL = os.environ.get(
     "IDENTITY_JWKS_URL", "http://localhost:5000/.well-known/jwks.json"
 )
-IDENTITY_ISSUER = "compasso-identity"
+IDENTITY_ISSUER = "compasso-identidade"
 IDENTITY_AUDIENCE = "compasso"
 
 REST_FRAMEWORK = {
