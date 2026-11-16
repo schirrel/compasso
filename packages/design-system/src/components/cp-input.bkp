@@ -1,0 +1,169 @@
+import { LitElement, css, html } from 'lit';
+import { ensureTokens } from '../styles/tokens.js';
+
+export type InputVariant = 'primary' | 'secondary' | 'ghost';
+export type InputSize = 'sm' | 'md' | 'lg';
+export type InputType = 'text' | 'password' | 'email' | 'number' | 'date' | 'datetime';
+
+export class CpInput extends LitElement {
+    static formAssociated = true;
+
+    static override properties = {
+        id: { type: String, reflect: true },
+        name: { type: String, reflect: true },
+        variant: { type: String, reflect: true },
+        size: { type: String, reflect: true },
+        type: { type: String },
+        disabled: { type: Boolean, reflect: true },
+        required: { type: Boolean, reflect: true },
+        value: {type: String, reflect: true },
+        placeholder: {type: String, reflect: true },
+        inputmode: {type: String, reflect: true },
+        label: {type: String, reflect: true }
+    };
+
+    declare variant: InputVariant;
+    declare size: InputSize;
+    declare type?: InputType;
+    declare disabled?: boolean;
+    declare requierd?: boolean;
+    declare value: string;
+    declare label: string;
+    declare id: string;
+    declare name?: string;
+    declare placeholder: string;
+    declare inputmode?: string;
+
+    #internals: ElementInternals | null = null;
+
+    constructor() {
+        super();
+        console.log('cp-input const');
+        this.variant = 'primary';
+        this.size = 'md';
+        this.type = 'text';
+        this.value = '';
+        this.placeholder = '';
+        this.inputmode = 'none';
+        this.disabled = false;
+        this.requierd = false;
+        if (typeof this.attachInternals === 'function') {
+            this.#internals = this.attachInternals();
+        }
+    }
+
+    override connectedCallback(): void {
+        console.log('cp-input connectedCallback');
+        super.connectedCallback();
+        ensureTokens();
+    }
+
+    #setValue(newValue: string) {
+        console.log('cp-input setValue');
+        this.value = newValue;
+        this.#internals?.setFormValue(String(newValue));
+        this.dispatchEvent(new InputEvent("input", { "bubbles": true, data: newValue, }))
+        this.dispatchEvent(new InputEvent("beforeinput", { "bubbles": true, data: newValue, }))
+    }
+
+    
+  static override styles = css`
+    :host {
+      display: inline-block;
+      font-family: var(--cp-font-family);
+      font-size: var(--cp-font-size-md);
+    }
+
+    :host([disabled]) {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    input {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--cp-space-2);
+      width: 100%;
+      border-radius: var(--cp-radius-md);
+      border: 1px solid transparent;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 120ms ease, box-shadow 120ms ease;
+    }
+
+    input:focus-visible {
+      outline: none;
+      box-shadow: var(--cp-focus-ring);
+    }
+
+    input:disabled {
+      cursor: not-allowed;
+    }
+
+    /* Variantes */
+    .primary {
+      background: var(--cp-color-primary);
+      color: var(--cp-color-primary-contrast);
+    }
+    .primary:hover:not(:disabled) {
+      filter: brightness(1.1);
+    }
+
+    .secondary {
+      background: var(--cp-color-surface);
+      color: var(--cp-color-primary);
+      border-color: var(--cp-color-primary);
+    }
+    .secondary:hover:not(:disabled) {
+      background: #eef4fa;
+    }
+
+    .ghost {
+      background: transparent;
+      color: var(--cp-color-primary);
+    }
+    .ghost:hover:not(:disabled) {
+      background: #eef4fa;
+    }
+
+    /* Tamanhos */
+    .sm {
+      padding: var(--cp-space-1) var(--cp-space-3);
+      font-size: var(--cp-font-size-sm);
+    }
+    .md {
+      padding: var(--cp-space-2) var(--cp-space-4);
+      font-size: var(--cp-font-size-md);
+    }
+    .lg {
+      padding: var(--cp-space-3) var(--cp-space-4);
+      font-size: var(--cp-font-size-lg);
+    }
+  `;
+
+    override render() {
+        console.log('cp-input render');
+      return html`
+        <div>
+            <label for=""> ${this.label} </label>
+            <input
+                part="control"
+                class="${this.variant} ${this.size}"
+                type="${this.type}"
+                value="${this.value}"
+                ?disabled=${this.disabled}
+                aria-disabled=${this.disabled ? 'true' : 'false'}
+                @input="${(e: HTMLElementEventMap | any) => this.#setValue(e.target.value)}"
+                />
+            </div>
+        `
+    }
+
+}
+
+
+if (!customElements.get('cp-input')) {
+  customElements.define('cp-input', CpInput);
+}
