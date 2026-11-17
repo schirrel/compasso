@@ -50,18 +50,17 @@ export async function POST(request: Request) {
         cookiesStore.set({
             name: SESSION_COOKIE,
             maxAge: response.expires_in ?? DEFAULT_MAX_AGE,
-            httpOnly: true,
+            // httpOnly: true,
+            domain: '.compass.local',            
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'lax',
             path: '/',
             value: response.access_token
         })
-        return NextResponse.json({ message: "Success" }, { status: 200 });
+        return NextResponse.json({...response}, { status: 200 });
 
     }
-    console.log(result);
   } catch (e) {
-    console.log(e);
     return NextResponse.json({ message: "Internal Error" }, { status: 400 });
   }
 }

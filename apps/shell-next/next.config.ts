@@ -4,14 +4,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   cacheComponents: false,
   partialPrefetching: false,
-  turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
-  },
+  allowedDevOrigins: ['auth.compass.local']
 };
 
 export default nextConfig;

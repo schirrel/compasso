@@ -17,11 +17,11 @@ public class AccountController : ControllerBase
     public async Task<IActionResult> Register([FromBody] Credentials credentials)
     {
         var result = await _authenticationService.RegisterUserAsync(credentials);
-        if (result)
+        if (result.Succeeded)
         {
             return CreatedAtAction(nameof(Register), new { email = credentials.Email }, null);
         }
-        return BadRequest();
+        return BadRequest(result);
     }
 
     [HttpPost("login")]

@@ -23,6 +23,8 @@ export class CpButton extends LitElement {
     size: { type: String, reflect: true },
     type: { type: String },
     disabled: { type: Boolean, reflect: true },
+    link: { type: Boolean, reflect: true },
+    href: { type: String, reflect: true },
   };
 
   static override styles = css`
@@ -105,6 +107,8 @@ export class CpButton extends LitElement {
   declare size: ButtonSize;
   declare type: ButtonType;
   declare disabled: boolean;
+  declare link?: boolean;
+  declare href?:string;
 
   #internals: ElementInternals | null = null;
 
@@ -125,11 +129,9 @@ export class CpButton extends LitElement {
   }
 
   #onClick = (): void => {
-    console.log('button on click');
     if (this.disabled) return;
 
     const form = this.#internals?.form;
-    console.log('button form', form);
     if (!form) return;
 
     if (this.type === 'submit') form.requestSubmit();
@@ -137,7 +139,15 @@ export class CpButton extends LitElement {
   };
 
   override render() {
-    return html`
+    return this.link ? 
+    html`<a
+        part="control"
+        class="${this.variant} ${this.size}"
+        href=${this.href}
+      >
+        <slot></slot>
+      </a>`
+    : html`
       <button
         part="control"
         class="${this.variant} ${this.size}"

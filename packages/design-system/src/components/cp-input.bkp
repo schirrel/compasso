@@ -38,7 +38,6 @@ export class CpInput extends LitElement {
 
     constructor() {
         super();
-        console.log('cp-input const');
         this.variant = 'primary';
         this.size = 'md';
         this.type = 'text';
@@ -53,13 +52,11 @@ export class CpInput extends LitElement {
     }
 
     override connectedCallback(): void {
-        console.log('cp-input connectedCallback');
         super.connectedCallback();
         ensureTokens();
     }
 
     #setValue(newValue: string) {
-        console.log('cp-input setValue');
         this.value = newValue;
         this.#internals?.setFormValue(String(newValue));
         this.dispatchEvent(new InputEvent("input", { "bubbles": true, data: newValue, }))
@@ -144,7 +141,6 @@ export class CpInput extends LitElement {
   `;
 
     override render() {
-        console.log('cp-input render');
       return html`
         <div>
             <label for=""> ${this.label} </label>

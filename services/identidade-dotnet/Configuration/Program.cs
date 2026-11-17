@@ -19,13 +19,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddOptions<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme)
     .Configure<RsaSecurityKey>((options, securityKey) =>
     {
-        JwtHelper.InflateToken(options, securityKey);
+        JwtFactory.InflateToken(options, securityKey);
     });
 
 builder.Services.AddAuthorization();
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<AuthenticationService>();
 builder.Services.AddControllers();
+
+
+// Configure logging
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+
 
 var app = builder.Build();
 

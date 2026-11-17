@@ -18,8 +18,8 @@ public class DebugController(RsaSecurityKey securityKey, RSA rsa) : ControllerBa
     // Sign with the private key, as /login does
     var token = handler.CreateToken(new SecurityTokenDescriptor
     {
-        Issuer = JwtHelper.Issuer,
-        Audience = JwtHelper.Audience,
+        Issuer = JwtFactory.Issuer,
+        Audience = JwtFactory.Audience,
         Claims = new Dictionary<string, object> { ["sub"] = "debug" },
         Expires = DateTime.UtcNow.AddMinutes(5),
         SigningCredentials = new SigningCredentials(_securityKey, SecurityAlgorithms.RsaSha256)

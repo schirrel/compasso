@@ -12,8 +12,10 @@ type CpAttributes = HTMLAttributes<HTMLElement> & {
   padded?: boolean;
   disabled?: boolean;
   required?: boolean;
+  link?: boolean;
   label?:string
   id?:string
+  href?:string
   placeholder?:string
 };
 
@@ -21,13 +23,15 @@ type CpAttributes = HTMLAttributes<HTMLElement> & {
 type CpInputAttributes = HTMLAttributes<HTMLElement> & {
   variant?: 'primary' | 'secondary' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
-  type: string;
   disabled?: boolean;
   required?: boolean;
+  link?:boolean
   label:string
   id:string
   value:string
   placeholder?:string
+  type: string;
+  href?: string;
   onCpchange?: (event: Event) => void
 };
 

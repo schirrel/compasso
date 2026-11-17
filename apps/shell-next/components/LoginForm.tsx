@@ -21,12 +21,13 @@ export default function LoginForm() {
     const response = await result.json();
 
       if (result.ok) {
+        localStorage.setItem('cp-session', response.access_token)
+        document.cookie = document.cookie + "cp-session2="+response.access_token+";domain=*.compass.local"
         return setSuccess(true)
       } else {
         setError(response.message ?? 'Something went wrong!')
       }
   } catch(e) {
-      console.log(e)
       setError('Something went wrong!')
 
   } finally {
@@ -77,7 +78,7 @@ export default function LoginForm() {
             <cp-button type="submit"  disabled={loading}> Login </cp-button>
           </div>
         </form>
-        <cp-button type="button" variant="ghost" size="sm"  disabled={loading}>
+        <cp-button link={true} variant="ghost" size="sm" href="/register">
             Register{" "}
         </cp-button>
       </cp-card>
