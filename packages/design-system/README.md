@@ -1,7 +1,7 @@
 # @compasso/design-system
 
 Design system do Compasso em Web Components, construídos com Lit 3. Os componentes
-são elementos HTML nativos (`cp-*`), então funcionam em React, Vue, Angular, Svelte,
+são elementos HTML nativos (`cp-*`), então funcionam em React, Vue, Angular,
 Next, Nuxt e Modern.js sem adaptadores.
 
 ## Componentes

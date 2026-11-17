@@ -8,7 +8,7 @@ The is intent to be build with a fully microservices backend using: PHP, Laravel
 
 The backend should include: pub/sub, queue, RestAPI, websocket
 ### Frontend
-In the frontend it will levarage some microfrontend approach, or a multirouting strategy to cover the main frameworks: Angular, React, Vue, Nuxt, Nest, Svelte, Meteor and also a shared library between all.
+In the frontend it will levarage some microfrontend approach, or a multirouting strategy to cover the main frameworks: Angular, React, Vue, Nuxt, Nest, Meteor and also a shared library between all.
 
 ### Infra
 Is desired to use different types of database such: PostgreSQL, MySQL, Redis, Cassandra and MongoDB.
