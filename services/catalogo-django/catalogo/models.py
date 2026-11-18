@@ -21,9 +21,15 @@ class BaseModel(models.Model):
 
 class Studio(BaseModel):
     name = models.CharField(max_length=120)
+    address = models.CharField(max_length=200)
     city = models.CharField(max_length=80)
+    state = models.CharField(max_length=2)
     owner_id = models.UUIDField(null=True, blank=True, db_index=True)  # "sub" from the Identity token
     approved = models.BooleanField(default=False)  # only the administrator approves
+    site = models.CharField(max_length=200, null=True)
+    instagram = models.CharField(max_length=200, null=True)
+    phone = models.CharField(max_length=20)
+    email = models.CharField(max_length=120, null=True)
 
     def __str__(self):
         return self.name
@@ -42,6 +48,8 @@ class Lesson(BaseModel):
     category = models.CharField(max_length=60)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     published = models.BooleanField(default=False)
+    recurring = models.BooleanField(default=False)
+    recurrence_in_days = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title

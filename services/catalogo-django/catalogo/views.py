@@ -47,6 +47,9 @@ class ManageStudioViewSet(ManageViewSet):
     def perform_create(self, serializer):
         serializer.save(owner_id = self.request.user.id, created_by = self.request.user.id)
 
+    def get(self, request, pk):
+        return self.retrieve(request, pk)
+
 class ManageLessonViewSet(ManageViewSet):
     serializer_class = LessonManageSerializer
 

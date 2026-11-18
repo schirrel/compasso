@@ -27,10 +27,10 @@ public class AccountController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] Credentials credentials)
     {
-        var token = await _authenticationService.LoginUserAsync(credentials);
-        if (token != null)
+        var loginResult = await _authenticationService.LoginUserAsync(credentials);
+        if (loginResult != null)
         {
-            return Ok(new { access_token = token, expires_in = 900 });
+            return Ok(new { access_token = loginResult.Token, expires_in = loginResult.ExpiresIn});
         }
         return Unauthorized();
     }

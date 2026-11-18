@@ -39,7 +39,7 @@ public class AuthenticationService
         }
     }
 
-    public async Task<string?> LoginUserAsync(Credentials credentials)
+    public async Task<TokenResult?> LoginUserAsync(Credentials credentials)
     {
         var user = await _userManager.FindByEmailAsync(credentials.Email);
         if (user == null || !await _userManager.CheckPasswordAsync(user, credentials.Password))
@@ -47,7 +47,7 @@ public class AuthenticationService
             return null;
         }
 
-        var token = JwtFactory.CreateJwtToken(_rsa, _securityKey, user);
-        return token;
+        var result = JwtFactory.CreateJwtToken(_rsa, _securityKey, user);
+        return result;
     }
 }

@@ -34,9 +34,10 @@ public class JwtFactory
         return $"{header}.{payload}.{Base64UrlEncode(signature)}";
     }
     
-    public static string CreateJwtToken(RSA rsa, RsaSecurityKey securityKey, IdentityUser user)
+    public static TokenResult CreateJwtToken(RSA rsa, RsaSecurityKey securityKey, IdentityUser user)
     {
         var now = DateTimeOffset.UtcNow;
+        var expires_in =  now.AddDays(1).ToUnixTimeSeconds();
         var token = SignJwt(rsa, securityKey.KeyId, new Dictionary<string, object>
         {
             ["iss"] = Issuer,
@@ -45,9 +46,9 @@ public class JwtFactory
             ["email"] = user.Email!,
             ["iat"] = now.ToUnixTimeSeconds(),
             ["nbf"] = now.ToUnixTimeSeconds(),
-            ["exp"] = now.AddMinutes(15).ToUnixTimeSeconds()
+            ["exp"] = expires_in
         });
-        return token;
+        return new TokenResult(token, expires_in);
     }
 }
 

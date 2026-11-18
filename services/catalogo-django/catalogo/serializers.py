@@ -29,7 +29,7 @@ class LessonSerializer(serializers.ModelSerializer):
 class StudioManageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Studio
-        fields = ["id", "name", "city", "approved", "created_at"]
+        fields = ["id", "name", "phone", "address", "city", "state", "site", "email", "instagram", "approved", "created_at"]
         read_only_fields = ["approved", "created_at"]
 
 
