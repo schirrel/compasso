@@ -1,41 +1,51 @@
-'use client';
+"use client";
+import { useSearchParams } from "next/navigation";
 import { useState, type SubmitEvent } from "react";
 
 export default function LoginForm() {
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const searchParams = useSearchParams();
 
-  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
-    setError('');
-    event.preventDefault();
-    setLoading(true)
-    try{
-    const result = await fetch('/api/login', {
-      method: 'POST',
-      body: JSON.stringify({email, password})
-    });
-    const response = await result.json();
+  async function doLogin() {
+    setLoading(true);
+    try {
+      const result = await fetch("/api/login", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+      });
+      const response = await result.json();
 
       if (result.ok) {
-        localStorage.setItem('cp-session', response.access_token)
-        document.cookie = document.cookie + "cp-session2="+response.access_token+";domain=*.compass.local"
-        return setSuccess(true)
+        onSuccess(response);
       } else {
-        setError(response.message ?? 'Something went wrong!')
+        setError(response.message ?? "Something went wrong!");
       }
-  } catch(e) {
-      setError('Something went wrong!')
-
-  } finally {
-      setLoading(false)
+    } catch (e) {
+      setError("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
   }
 
+  function onSuccess(response: {access_token: string}) {
+    localStorage.setItem("cp-session", response.access_token);
+    setSuccess(true);
+    const redirectUrl = searchParams.get("r");
+    if (redirectUrl) {
+      window.location.href = redirectUrl;
+    }
   }
-  
+
+  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError("");
+    await doLogin();
+  }
+
   return (
     <div className="flex flex-col flex-1 items-center justify-center font-sans bg-black-200 gap-4">
       <h1 className="font-bold text-2xl">
@@ -43,10 +53,21 @@ export default function LoginForm() {
       </h1>
       <cp-card>
         <h2 className="font-bold text-md">Welcome Back</h2>
-        <form className="flex min-w-[400px] p-4 flex-col flex-1 items-center justify-center font-sans" onSubmit={handleSubmit}>
-          { success ? <cp-badge tone="success" >Logged in succesfully,  you will be redirected!</cp-badge> : null }
-          { error ?  <cp-badge tone="danger" >{error}</cp-badge >   : null}
-          <span className={`${!loading? 'hidden' : ''} flex flex-col flex-1 items-center justify-center absolute flex w-full h-full bg-white-50 z-10 text-black font-bold text-2xl`}>Loading</span>  
+        <form
+          className="flex min-w-[400px] p-4 flex-col flex-1 items-center justify-center font-sans"
+          onSubmit={handleSubmit}
+        >
+          {success ? (
+            <cp-badge tone="success">
+              Logged in succesfully, you will be redirected!
+            </cp-badge>
+          ) : null}
+          {error ? <cp-badge tone="danger">{error}</cp-badge> : null}
+          <span
+            className={`${!loading ? "hidden" : ""} flex flex-col flex-1 items-center justify-center absolute flex w-full h-full bg-white-50 z-10 text-black font-bold text-2xl`}
+          >
+            Loading
+          </span>
           <div className="w-full">
             <cp-input
               id="email-input"
@@ -67,19 +88,29 @@ export default function LoginForm() {
               label="Password"
               required
               value={password}
-              onChange={(e) => setPassword((e.target as HTMLInputElement).value)}
+              onChange={(e) =>
+                setPassword((e.target as HTMLInputElement).value)
+              }
             ></cp-input>
           </div>
           <div className="flex flex-col w-full max-w-3xl flex-col items-center justify-between">
-            <cp-button type="button" variant="ghost" size="sm"  disabled={loading}>
+            <cp-button
+              type="button"
+              variant="ghost"
+              size="sm"
+              disabled={loading}
+            >
               {" "}
               Forget Password{" "}
             </cp-button>
-            <cp-button type="submit"  disabled={loading}> Login </cp-button>
+            <cp-button type="submit" disabled={loading}>
+              {" "}
+              Login{" "}
+            </cp-button>
           </div>
         </form>
         <cp-button link={true} variant="ghost" size="sm" href="/register">
-            Register{" "}
+          Register{" "}
         </cp-button>
       </cp-card>
     </div>

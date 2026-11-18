@@ -1,35 +1,52 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Playground | Compasso Design System</title>
-    <link rel="stylesheet" href="./playground.css" />
-  </head>
-  <body>
-    <header class="pg-header">
-      <h1>Compasso Design System</h1>
-      <p>Playground de testes. Edite um componente em <code>src/</code> e a página recarrega.</p>
-    </header>
 
-    <section class="pg-section" id="input">
-        <h2>cp-input</h2>
-        <h3>Variantes</h3>
-        <div class="pg-row">
-          <cp-input type="text" id="field1"  size="sm" variant="primary" label="TEST" palceholder="ahaha"></cp-input>
-        </div>
-        
-        <div class="pg-row">
-          <form>
-            <cp-input type="text" id="field1"  size="lg" variant="ghost" label="TEST" palceholder="ahaha"></cp-input>
-          </form>
-        </div>
-      </section>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Playground | Compasso Design System</title>
+  <link rel="stylesheet" href="./playground.css" />
+</head>
+
+<body>
+  <header class="pg-header">
+    <h1>Compasso Design System</h1>
+    <p>Playground de testes. Edite um componente em <code>src/</code> e a página recarrega.</p>
+  </header>
+
+  <section class="pg-section" id="input">
+    <h2>cp-input</h2>
+    <h3>Variantes</h3>
+    <div class="pg-row">
+      <cp-input type="text" id="field1" size="sm" variant="primary" label="TEST" palceholder="ahaha"></cp-input>
+    </div>
+
+    <div class="pg-row">
+      <form>
+        <cp-input type="text" id="field1" size="lg" variant="ghost" label="TEST" palceholder="ahaha"></cp-input>
+      </form>
+    </div>
+  </section>
+
+  <main class="pg-main">
+    <section class="pg-section">
+      <h2>Loading</h2>
+      <div style="position: relative; height: 500px; width: 500px; background: yellow;"> <cp-loading
+          size="lg"></cp-loading>
+      </div>
+      <div style="position: relative; height: 300px; width: 500px; background: red;"> <cp-loading
+          size="md"></cp-loading>
+      </div>
+      <div style="position: relative; height: 200px; width: 200px; background: blue;"> <cp-loading
+          size="sm"></cp-loading>
+      </div>
+    </section>
 
     <main class="pg-main">
       <section class="pg-section" id="tema">
         <h2>Tema (tokens)</h2>
-        <p class="pg-hint">Altera as variáveis <code>--cp-*</code> no <code>:root</code>. Todos os componentes devem reagir.</p>
+        <p class="pg-hint">Altera as variáveis <code>--cp-*</code> no <code>:root</code>. Todos os componentes devem
+          reagir.</p>
         <div class="pg-row">
           <label>Cor primária <input type="color" data-token="--cp-color-primary" value="#1f4e79" /></label>
           <label>Raio
@@ -66,12 +83,16 @@
         <div class="pg-row">
           <label>variant
             <select data-target="#btn-demo" data-attr="variant">
-              <option>primary</option><option>secondary</option><option>ghost</option>
+              <option>primary</option>
+              <option>secondary</option>
+              <option>ghost</option>
             </select>
           </label>
           <label>size
             <select data-target="#btn-demo" data-attr="size">
-              <option>sm</option><option selected>md</option><option>lg</option>
+              <option>sm</option>
+              <option selected>md</option>
+              <option>lg</option>
             </select>
           </label>
           <label><input type="checkbox" data-target="#btn-demo" data-attr="disabled" /> disabled</label>
@@ -106,7 +127,8 @@
 
       <section class="pg-section" id="form">
         <h2>Formulário</h2>
-        <p class="pg-hint">Testa <code>type="submit"</code> e <code>type="reset"</code> dentro de um <code>&lt;form&gt;</code>.</p>
+        <p class="pg-hint">Testa <code>type="submit"</code> e <code>type="reset"</code> dentro de um
+          <code>&lt;form&gt;</code>.</p>
         <form id="form-demo" class="pg-row">
           <input name="email" type="email" placeholder="email@exemplo.com" required />
           <cp-button type="submit">Enviar</cp-button>
@@ -123,5 +145,6 @@
     </main>
 
     <script type="module" src="./main.ts"></script>
-  </body>
+</body>
+
 </html>

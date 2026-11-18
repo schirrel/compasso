@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from 'next/headers';
 
 const SESSION_COOKIE = 'cp_session';
-const DEFAULT_MAX_AGE = 900; // Matches services\identidade-dotnet\Controllers\AccountController.cs
+const DEFAULT_MAX_AGE = 24 * 60 * 60; //  1 day in seconds
 
 
 type LoginBody = {
@@ -45,7 +45,7 @@ export async function POST(request: Request) {
         return NextResponse.json({ message: "Invalid Credentials" }, { status: 401 });
     }
     if (result.ok) {
-        const response =  await result.json() as LoginResponse  ;
+        const response =  await result.json() as LoginResponse;
         const cookiesStore = await cookies();
         cookiesStore.set({
             name: SESSION_COOKIE,

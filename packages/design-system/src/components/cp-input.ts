@@ -177,10 +177,11 @@ export class CpInput extends LitElement {
 
     override render() {
       return html`
-        <div class="cp-input-wrapper">
-            <label for="">${this.label}${this.required ? html`<span aria-label="required field"> *</span>` : ''}: </label>
+        <divclass="cp-input-wrapper">
+            <label part="label" for="">${this.label}${this.required ? html`<span aria-label="required field"> *</span>` : ''}: </label>
             
             <input
+                part="input"
                 part="control"
                 class="${this.variant} ${this.size}"
                 type="${this.type}"
@@ -190,7 +191,7 @@ export class CpInput extends LitElement {
                 aria-disabled=${this.disabled ? 'true' : 'false'}
                 @input="${(e: HTMLElementEventMap | any) => this.#setValue(e.target.value)}"
                 />
-            </div>
+            </divclass=>
         `
     }
 
